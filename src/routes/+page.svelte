@@ -65,7 +65,9 @@
 		@apply text-blue-400 underline underline-offset-4 hover:text-blue-300;
 	}
 	* {
-		@apply font-mono text-lg sm:text-xl;
+		@apply text-lg sm:text-xl;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+			'Courier New', monospace;
 	}
 	div {
 		@apply mx-5 sm:mx-12 md:mx-32 lg:mx-48 xl:mx-64;
