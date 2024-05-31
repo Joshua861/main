@@ -39,7 +39,7 @@
 	placehold.co clone.
 
 	<br />
-	<hr class="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700" />
+	<hr class="dark:bg-gray-700" />
 	<a href="https://popup.joshrl.dev/" class="link">Popup hell</a><br />
 	Quick joke website from forever ago that I never finished. Tons of popups.
 
@@ -51,7 +51,7 @@
 	<a href="https://old-notes.joshrl.dev/notes" class="link">Old Notes</a><br />
 	Older version of the offline notes.
 
-	<hr class="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700" />
+	<hr class="dark:bg-gray-700" />
 
 	<p>Thanks to my amazing friends Lucas and Ethan for helping me along my journey.</p>
 	<br />
