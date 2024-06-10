@@ -1,8 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-	@apply bg-neutral-900;
+/* body { */
+/* 	@apply bg-neutral-900; */
+/* } */
+
+.link {
+	@apply text-fg1 underline underline-offset-4 hover:text-greenDim;
+}
+
+*::selection {
+	background-color: #32302f;
+	color: #fbf1c7;
 }
