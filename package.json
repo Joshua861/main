@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"gsap": "^3.12.5",
 		"svelte-markdown": "^0.4.1"
 	}
 }

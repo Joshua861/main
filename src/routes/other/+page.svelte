@@ -2,20 +2,20 @@
 	import SvelteMarkdown from 'svelte-markdown';
 
 	let links = [
-		{
-			title: 'Rank',
-			description:
-				'This was meant to be somewhere where people could rank things. Basically AB testing for the best [x] thing. All you can actually rank is colors though.',
-			link: 'https://rank.joshrl.dev/',
-			source_code: 'https://github.com/Joshua861/rank'
-		},
-		{
-			title: 'Post timeline',
-			description:
-				'Basically Mastadon, but without all of the features, and people... but at least its easy to impersonate someone.',
-			link: 'https://post.joshrl.dev/',
-			source_code: 'https://github.com/Joshua861/post-timeline'
-		},
+		// {
+		// 	title: 'Rank',
+		// 	description:
+		// 		'This was meant to be somewhere where people could rank things. Basically AB testing for the best [x] thing. All you can actually rank is colors though.',
+		// 	link: 'https://rank.joshrl.dev/',
+		// 	source_code: 'https://github.com/Joshua861/rank'
+		// },
+		// {
+		// 	title: 'Post timeline',
+		// 	description:
+		// 		'Basically Mastadon, but without all of the features, and people... but at least its easy to impersonate someone.',
+		// 	link: 'https://post.joshrl.dev/',
+		// 	source_code: 'https://github.com/Joshua861/post-timeline'
+		// },
 		{
 			title: 'Placeholders',
 			description:

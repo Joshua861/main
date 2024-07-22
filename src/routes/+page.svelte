@@ -3,6 +3,17 @@
 
 	let links = [
 		{
+			title: 'Chat',
+			description:
+				'A chat app. Newer, and better made than -=msg=-, but still missing some features which -=msg=- has.',
+			link: 'https://chat.joshrl.dev/'
+		},
+		{
+			title: '-=msg=-',
+			description: 'Fun, but buggy messaging app. Abandoned in favour of another, simular project.',
+			link: 'https://msg.joshrl.dev/'
+		},
+		{
 			title: 'Wordle',
 			description:
 				'A Wordle clone I made for fun, and it actually works pretty well, which is unusual considering I made it. Fun fact, since all state is stored as svelte stores in local storage, if you open the page on two windows, whenever you type or press something on one window, it updates on both windows. You can share your games with your friends, and challenge them to try the same words as you, and, best of all, you can play it as many times as you want!',
@@ -63,15 +74,17 @@
 				"Who's ready to party? You? Ok well this probably isn't for you. I don't know why I called it party games, I mean, it's mostly all games you can play with friends, but I can't imagine anyone playing this in a party.",
 			link: 'https://party.joshrl.dev/',
 			source_code: 'https://github.com/Joshua861/party-games'
-		},
-		{
-			title: 'Link lengthener',
-			description:
-				"This ones kinda ass tbh. It was really low effort, and for some reason I used a database to store the ID's and the corresponding link, instead of doing the obvious and just encoding the real url in the long url. The reason I made this and not a link shortening site is that it has to be something.joshrl.dev, so it wouldn't ever be very short.",
-			link: 'https://long.joshrl.dev',
-			source_code: 'https://github.com/Joshua861/url-lengthener'
 		}
+		// {
+		// 	title: 'Link lengthener',
+		// 	description:
+		// 		"This ones kinda ass tbh. It was really low effort, and for some reason I used a database to store the ID's and the corresponding link, instead of doing the obvious and just encoding the real url in the long url. The reason I made this and not a link shortening site is that it has to be something.joshrl.dev, so it wouldn't ever be very short.",
+		// 	link: 'https://long.joshrl.dev',
+		// 	source_code: 'https://github.com/Joshua861/url-lengthener'
+		// }
 	];
+
+	let linkElements = [];
 </script>
 
 <div class="h-full min-h-[100vh] w-full min-w-[100vw] bg-bg_h pt-3">
@@ -87,8 +100,8 @@
 		<br />
 
 		<div class="columns-1 sm:columns-2 md:columns-3">
-			{#each links as link}
-				<div class="avoid-break">
+			{#each links as link, i}
+				<div class="avoid-break" bind:this={linkElements[i]}>
 					<div class="[&>*]:!text-mono mb-4 h-fit border-2 border-bg2 p-3 hover:border-green">
 						<strong class="text-fg0">
 							{link.title}
@@ -111,6 +124,8 @@
 		<a href="/other" class="link">Other projects that I don't like as much</a> |
 		<a href="https://github.com/Joshua861/main" class="link">Source code</a> |
 		<a href="mailto:joshrl@proton.me" class="link">Contact me</a> (if you want to)
+		<br /><br />
+		Thanks to Ed for buying me a sausage roll.
 		<br /><br />
 	</div>
 </div>
