@@ -3,15 +3,26 @@
 
 	let links = [
 		{
+			title: 'GOL',
+			description: 'Game of Life app in Rust.',
+			link: 'https://github.com/Joshua861/gol'
+		},
+		{
+			title: 'Ascii Editor',
+			description: 'Editor for making ascii art much easier than using a normal text editor.',
+			link: 'https://ascii.joshrl.dev',
+			source_code: 'https://github.com/Joshua861/ascii_editor'
+		},
+		{
 			title: 'Chat',
-			description:
-				'A chat app. Newer, and better made than -=msg=-, but still missing some features which -=msg=- has.',
-			link: 'https://chat.joshrl.dev/'
+			description: 'Simple Chat app made because Edward was nagging me for a more features.',
+			link: 'https://chat.joshrl.dev'
 		},
 		{
 			title: '-=msg=-',
-			description: 'Fun, but buggy messaging app. Abandoned in favour of another, simular project.',
-			link: 'https://msg.joshrl.dev/'
+			description:
+				'Even more simple chat app. Poorly made because it was super simple at first but my friends kept requesting more and more features. ',
+			link: 'https://msg.joshrl.dev'
 		},
 		{
 			title: 'Wordle',
