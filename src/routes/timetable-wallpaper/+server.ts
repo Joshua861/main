@@ -97,7 +97,7 @@ export const GET = async (event) => {
 								padding: '50px',
 								marginRight: 'auto',
 								marginLeft: 'auto',
-								marginTop: '400px'
+								marginTop: '350px'
 							}
 						}
 					}
