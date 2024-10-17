@@ -2,10 +2,54 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { StudentClient } from 'classcharts-api';
 import { CLASSCHARTS_CODE, CLASSCHARTS_DOB } from '$env/static/private';
-import fs from 'fs/promises';
-import path from 'path';
 
-export const GET = async (request) => {
+export const GET = async (event) => {
+	let imageData, fontData;
+
+	try {
+		fontData = await event
+			.fetch('/spacemono.ttf')
+			.then((r) => r.blob().then((r) => r.arrayBuffer()));
+		console.log('Font data fetched successfully');
+	} catch (fontError) {
+		console.error('Failed to fetch font data:', fontError);
+		return new Response(
+			JSON.stringify({ error: fontError.message, message: 'Failed to fetch font data.' }),
+			{
+				headers: { 'content-type': 'application/json' },
+				status: 500
+			}
+		);
+	}
+
+	try {
+		imageData = await event.fetch('/wp.png').then((r) => r.blob().then((r) => r.arrayBuffer()));
+		console.log('Image data fetched successfully');
+	} catch (imageError) {
+		console.error('Failed to fetch image data:', imageError);
+		return new Response(
+			JSON.stringify({ error: imageError.message, message: 'Failed to fetch image data.' }),
+			{
+				headers: { 'content-type': 'application/json' },
+				status: 500
+			}
+		);
+	}
+
+	try {
+		const lessons = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB);
+		console.log('Lessons fetched:', lessons);
+	} catch (lessonError) {
+		console.error('Failed to fetch lessons:', lessonError);
+		return new Response(
+			JSON.stringify({ error: lessonError.message, message: 'Failed to fetch lessons.' }),
+			{
+				headers: { 'content-type': 'application/json' },
+				status: 500
+			}
+		);
+	}
+
 	try {
 		const lessons = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB);
 
@@ -13,12 +57,7 @@ export const GET = async (request) => {
 
 		const [y, x] = [1792, 828];
 
-		const fontPath = path.join(process.cwd(), 'static', 'SpaceMono-Bold.ttf');
-		const fontData = await fs.readFile(fontPath);
-
-		const imagePath = path.join(process.cwd(), 'static', 'wp.png');
-		const imageData = await fs.readFile(imagePath);
-		const wpBase64 = imageData.toString('base64');
+		const wpBase64 = Buffer.from(imageData).toString('base64');
 
 		const svg = await satori(
 			{
@@ -70,7 +109,7 @@ export const GET = async (request) => {
 				fonts: [
 					{
 						name: 'SpaceMono',
-						data: await fontData,
+						data: fontData,
 						style: 'normal'
 					}
 				]
@@ -91,8 +130,10 @@ export const GET = async (request) => {
 				'content-type': 'image/png'
 			}
 		});
+
+		// return new Response(null, {});
 	} catch (error) {
-		return new Response(JSON.stringify(error), {
+		return new Response(JSON.stringify({ error, message: 'Error generating wallpaper.' }), {
 			headers: {
 				'content-type': 'application/json'
 			},
