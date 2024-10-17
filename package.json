@@ -36,7 +36,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@resvg/resvg-js": "^2.6.2",
+		"classcharts-api": "^2.12.1",
 		"gsap": "^3.12.5",
+		"satori": "^0.11.2",
 		"svelte-markdown": "^0.4.1"
 	}
 }
