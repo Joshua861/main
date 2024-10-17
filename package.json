@@ -37,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@resvg/resvg-js": "^2.6.2",
+		"@sveltejs/adapter-vercel": "^5.4.5",
 		"classcharts-api": "^2.12.1",
 		"gsap": "^3.12.5",
 		"satori": "^0.11.2",

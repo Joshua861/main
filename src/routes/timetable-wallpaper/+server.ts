@@ -1,13 +1,9 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import SpaceMono from '$lib/SpaceMono-Bold.ttf';
-import WP from '$lib/wp.png';
-import { read } from '$app/server';
 import { StudentClient } from 'classcharts-api';
 import { CLASSCHARTS_CODE, CLASSCHARTS_DOB } from '$env/static/private';
-
-const fontData = read(SpaceMono).arrayBuffer();
-const wp = read(WP).arrayBuffer();
+import fs from 'fs/promises';
+import path from 'path';
 
 export const GET = async (request) => {
 	const lessons = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB);
@@ -16,8 +12,12 @@ export const GET = async (request) => {
 
 	const [y, x] = [1792, 828];
 
-	const bg = '#2E145166';
-	const wpBase64 = Buffer.from(await wp).toString('base64');
+	const fontPath = path.join(process.cwd(), 'static', 'SpaceMono-Bold.ttf');
+	const fontData = await fs.readFile(fontPath);
+
+	const imagePath = path.join(process.cwd(), 'static', 'wp.png');
+	const imageData = await fs.readFile(imagePath);
+	const wpBase64 = imageData.toString('base64');
 
 	const svg = await satori(
 		{
