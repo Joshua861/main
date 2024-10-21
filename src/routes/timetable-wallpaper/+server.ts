@@ -1,10 +1,13 @@
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { StudentClient } from 'classcharts-api';
-import { CLASSCHARTS_CODE, CLASSCHARTS_DOB } from '$env/static/private';
 
 export const GET = async (event) => {
 	let imageData, fontData;
+	const code = event.url.searchParams.get('code');
+	const dob = event.url.searchParams.get('dob')?.replaceAll('-', '/');
+
+	console.log({ code, dob });
 
 	try {
 		fontData = await event
@@ -37,12 +40,8 @@ export const GET = async (event) => {
 	}
 
 	try {
-		const lessons_today = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB, getTodaysDate());
-		const lessons_tomorrow = await getLessons(
-			CLASSCHARTS_CODE,
-			CLASSCHARTS_DOB,
-			getTomorrowsDate()
-		);
+		const lessons_today = await getLessons(code, dob, getTodaysDate());
+		const lessons_tomorrow = await getLessons(code, dob, getTomorrowsDate());
 
 		const [y, x] = [1792, 828];
 
