@@ -51,9 +51,12 @@ export const GET = async (event) => {
 	}
 
 	try {
-		const lessons = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB);
-
-		console.log(lessons);
+		const lessons_today = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB, getTodaysDate());
+		const lessons_tomorrow = await getLessons(
+			CLASSCHARTS_CODE,
+			CLASSCHARTS_DOB,
+			getTomorrowsDate()
+		);
 
 		const [y, x] = [1792, 828];
 
@@ -84,11 +87,15 @@ export const GET = async (event) => {
 										fontSize: '40px',
 										color: '#bba4ea'
 									},
-									children: lessons.data
-										.map((lesson) => {
-											return lesson.subject_name + '\n' + lesson.teacher_name;
-										})
-										.join('\n\n')
+									children:
+										'--Today--\n\n' +
+										lessons_today.data
+											.map((lesson) => {
+												return lesson.subject_name;
+											})
+											.join('\n') +
+										'\n\n--Tomorrow--\n\n' +
+										lessons_tomorrow.data.map((lesson) => lesson.subject_name).join('\n\n')
 								}
 							},
 							style: {
@@ -149,18 +156,32 @@ function getTodaysDate() {
 	const month = date.getMonth() + 1;
 	const year = date.getFullYear();
 
-	// This arrangement can be altered based on how we want the date's format to appear.
-	const currentDate = `${day}-${month}-${year}`;
+	const currentDate = formatDate(day, month, year);
 
 	return currentDate;
 }
 
-async function getLessons(code: string, DOB: string) {
+function getTomorrowsDate() {
+	const tomorrow = new Date().setDate(new Date().getDate() + 1);
+
+	const day = new Date(tomorrow).getDate();
+	const month = new Date(tomorrow).getMonth() + 1;
+	const year = new Date(tomorrow).getFullYear();
+
+	const tomorrowDate = formatDate(day, month, year);
+	return tomorrowDate;
+}
+
+function formatDate(day, month, year) {
+	return `${day}-${month}-${year}`;
+}
+
+async function getLessons(code: string, DOB: string, date: string) {
 	const client = new StudentClient(code, DOB);
 	await client.login();
 
 	const lessons = await client.getLessons({
-		date: getTodaysDate()
+		date
 	});
 
 	return lessons;
