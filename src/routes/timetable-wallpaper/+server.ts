@@ -37,20 +37,6 @@ export const GET = async (event) => {
 	}
 
 	try {
-		const lessons = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB);
-		console.log('Lessons fetched:', lessons);
-	} catch (lessonError) {
-		console.error('Failed to fetch lessons:', lessonError);
-		return new Response(
-			JSON.stringify({ error: lessonError.message, message: 'Failed to fetch lessons.' }),
-			{
-				headers: { 'content-type': 'application/json' },
-				status: 500
-			}
-		);
-	}
-
-	try {
 		const lessons_today = await getLessons(CLASSCHARTS_CODE, CLASSCHARTS_DOB, getTodaysDate());
 		const lessons_tomorrow = await getLessons(
 			CLASSCHARTS_CODE,
@@ -94,8 +80,10 @@ export const GET = async (event) => {
 												return lesson.subject_name;
 											})
 											.join('\n') +
-										'\n\n--Tomorrow--\n\n' +
-										lessons_tomorrow.data.map((lesson) => lesson.subject_name).join('\n\n')
+										(lessons_tomorrow.data.length > 0
+											? '\n\n--Tomorrow--\n\n' +
+												lessons_tomorrow.data.map((lesson) => lesson.subject_name).join('\n')
+											: '')
 								}
 							},
 							style: {
@@ -179,6 +167,8 @@ function formatDate(day, month, year) {
 async function getLessons(code: string, DOB: string, date: string) {
 	const client = new StudentClient(code, DOB);
 	await client.login();
+
+	console.log(date);
 
 	const lessons = await client.getLessons({
 		date
